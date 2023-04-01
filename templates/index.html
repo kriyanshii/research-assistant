@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Research Assistant</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+	</head>
+	<body>
+        <div class="center">
+            <h2 class="heading">Research Assistant</h2>
+            <form method="POST" enctype="multipart/form-data" action="/upload">
+                <!-- <label class="file-upload-label" for="file">Choose a file</label> -->
+                <input class="file-upload-label" type="file" name="file" multiple="" />
+                <input type="submit" class="submit-button" value="add" />
+            </form>
+        </div>
+	</body>
+</html>
