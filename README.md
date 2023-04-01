@@ -18,11 +18,11 @@ We have designed an aid for the everyday researcher and knowledge gatherer. You 
 
 A user can upload a number of well-formatted (mostly plaintext) PDFs. This tool is focused on research papers due to their standard format, making it very easy to extract text. Also, the need for such a tool is greater because research papers tend to have a lot of data and sifting through many research papers to obtain data related to a query can become tedious.
 
-## Competitors [CHOOSE WHETHER TO KEEP]
+<!-- ## Competitors
 
 There are currently no large scale competitors to this product. Despite appearances, summarization tools, even those harnessing AI cannot be compared to this product.
 
-Indirect competitors AI summary tools: scholarcy, paper-digest
+Indirect competitors AI summary tools: scholarcy, paper-digest -->
 
 ## How it Works
 
@@ -46,7 +46,7 @@ Whenever the user asks a question, it is converted into a vector using the _same
 
 1. Better support for images, tables, mathematical formulas and non-english alphabets (can be attained by modifying the corpus reader function).
 
-2. Users can have a dedicated storage for all their documents and can provide easy retrieval, also providing category based indexes (unfortunately, this functionality can only exist in a revenue generating product/increase cost dramatically [CHOOSE WHICHEVER FEELS HAS THE BEST IMPACT]).
+2. Users can have a dedicated storage for all their documents and can provide easy retrieval, also providing category based indexes (unfortunately, this functionality can <!-- only exist in a revenue generating product/ -->increase cost dramatically).
 
 3. A more advanced system can be easily engineered from this point that can highlight and annotate (from GPT's completion answer), the original sources.
 
