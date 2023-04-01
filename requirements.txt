@@ -47,7 +47,7 @@ sympy
 threadpoolctl==3.1.0
 tokenizers==0.13.2
 torch
-torchvision==0.15.1
+torchvision
 tqdm==4.65.0
 transformers==4.27.4
 typing_extensions==4.5.0
