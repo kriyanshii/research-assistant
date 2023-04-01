@@ -26,7 +26,7 @@ nltk==3.8.1
 numpy
 openai==0.27.2
 packaging==23.0
-pandas==1.5.3
+pandas
 Pillow==9.5.0
 pinecone-client==2.2.1
 pyarrow==11.0.0
