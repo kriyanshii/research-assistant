@@ -39,7 +39,7 @@ regex
 requests==2.28.2
 responses==0.18.0
 scikit-learn
-scipy==1.10.1
+scipy
 sentence-transformers==2.2.2
 sentencepiece==0.1.97
 six==1.16.0
