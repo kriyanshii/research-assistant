@@ -5,16 +5,67 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Research Assistant</title>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static',filename='styles/style.css') }}" />
 	</head>
 	<body>
-        <div class="center">
-            <h2 class="heading">Research Assistant</h2>
-            <form method="POST" enctype="multipart/form-data" action="/upload">
-                <!-- <label class="file-upload-label" for="file">Choose a file</label> -->
-                <input class="file-upload-label" type="file" name="file" multiple="" />
-                <input type="submit" class="submit-button" value="add" />
-            </form>
-        </div>
+		<header>
+			<div class="logo">researchGPT</div>
+			<nav>
+				<ul>
+					<!-- <li><a href="">Home</a></li> -->
+					<!-- <li><a href="#"></a></li> -->
+					<!-- <li><a href="#"></a></li> -->
+				</ul>
+			</nav>
+		</header>
+		<section class="center">
+			<h2 class="heading">Upload Document</h2>
+			<form method="POST" enctype="multipart/form-data" action="/upload">
+				<!-- <label class="file-upload-label" for="file">Choose a file</label> -->
+				<input class="file-upload-label" type="file" name="file" multiple="" />
+				<input type="submit" class="submit-button" value="Upload File" />
+			</form>
+            <a href="/prompt">Use existing Knowledge</a>
+		</section>
+
+		<section class="faq">
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-list">
+                  <div class="faq-item">
+                    <h3 class="question">What is this app?</h3>
+                    <div class="answer">
+                      <p>This app is a tool that uses OpenAI's natural language processing to generate text based on user input. It can be used for a variety of purposes, including writing assistance and chatbot development.</p>
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <h3 class="question">How does it work?</h3>
+                    <div class="answer">
+                      <p>The app uses OpenAI's GPT-3 language model to generate text based on user input. The user provides a prompt, and the app uses the model to generate a text response. The user can then edit the response as needed and use it for their desired purpose.</p>
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <h3 class="question">Is my data safe?</h3>
+                    <div class="answer">
+                      <p>Yes, your data is safe. The app does not store any user data on our servers, and all data is processed locally on the user's device. We also use encryption to ensure that all data transmission is secure.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+		</section>
+
+		<footer class="footer">Made with 💗 using openAI API by Kriyanshi, Nimit & Sadiah</footer>
 	</body>
+
+	<script>
+		const questions = document.querySelectorAll(".faq-item .question");
+		questions.forEach((question) => {
+			question.addEventListener("click", () => {
+				question.parentNode.classList.toggle("active");
+			});
+		});
+	</script>
 </html>
