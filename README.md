@@ -67,7 +67,9 @@ Link to google colab (used for testing) - https://colab.research.google.com/driv
 Multiple deployments ensure zero downtime even when on free tiers ;)
 
 <a href="https://researchgpt-grs5.onrender.com/">Render</a>
+<br />
 <a href="https://research-assistant-production.up.railway.app/">Railway</a>
+<br />
 <a href="http://ec2-13-233-118-234.ap-south-1.compute.amazonaws.com/">AWS</a>
 
 > This project was made during the course of the stranger hacks event by devfolio with the objective to develop a web app that can provide proof of concept and basic functionality. Development of a more robust and feature rich version of this project is to continue post the hackathon.
