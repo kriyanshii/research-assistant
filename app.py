@@ -3,7 +3,6 @@
 from flask import Flask, render_template
 import flask
 import os
-# from local import Local
 from remote import Remote
 
 app = Flask(__name__)

@@ -100,7 +100,7 @@ class Remote:
             f"\n\nQuestion: {query}\nAnswer:"
         )
         prompt = ''
-        limit = 3750
+        limit = 3000
         for i in range(1, len(contexts)):
             if len("\n\n---\n\n".join(contexts[:i])) >= limit:
                 prompt = (
