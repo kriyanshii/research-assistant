@@ -126,11 +126,11 @@ class Remote:
 
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
-def get_embedding(text: str, model="text-embedding-ada-002") -> list[float]:
+def get_embedding(text, model="text-embedding-ada-002"):
     return openai.Embedding.create(input=[text], model=model)["data"][0]["embedding"]
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
-def get_completion(prompt) -> str:
+def get_completion(prompt):
     completionResult = openai.Completion.create(
             engine='text-davinci-003',
             prompt=prompt,
