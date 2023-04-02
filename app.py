@@ -15,15 +15,20 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload():
     if flask.request.method == "POST":
         files = flask.request.files.getlist("file")
-        for file in files:
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+        for file in files[:5]:
+            path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(path)
+            file_size = os.stat(path).st_size
+            #For 5MB max file size, 1024*1024*5
+            if file_size > 5242880:
+                os.remove(path)
         try:
             compute.uploadDocuments(app.config['UPLOAD_FOLDER'])
         except Exception as err:
             print(f'Error while executing completion query: {err}')
             return render_template("error.html")
 
-    return render_template("prompt.html")
+    return render_template("prompt.html", output="You have exceeded either the file size or number limits")
 
 @app.route("/prompt", methods = ['GET', 'POST'])
 def prompt():
