@@ -2,4 +2,5 @@
 .venv
 __pycache__
 
-used_dataprev
+data
+used_data
