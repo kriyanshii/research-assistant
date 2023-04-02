@@ -20,7 +20,7 @@ def upload():
         try:
             compute.uploadDocuments(app.config['UPLOAD_FOLDER'])
         except:
-        return render_template("error.html")
+            return render_template("error.html")
 
     return render_template("prompt.html")
 
