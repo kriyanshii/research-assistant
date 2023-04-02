@@ -46,7 +46,7 @@ nav a:hover {
 .center {
 	margin: 100px auto;
 	width: 50%;
-    height: 300px;
+    height: 500px;
 }
 
 .chat-input {
@@ -113,10 +113,6 @@ button[type="submit"]:hover {
 	cursor: pointer;
 }
 
-/* .prompt {
-	color: grey;
-	font-size: 13px;
-} */
 
 /* prompt */
 
@@ -180,14 +176,6 @@ p {
 	line-height: 1.5;
 }
 
-.prompt {
-	background-color: #0072c6;
-	color: #fff;
-	font-size: 18px;
-	padding: 10px;
-	border-radius: 20px;
-	margin: 20px 0;
-}
 
 hr {
 	border: none;

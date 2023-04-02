@@ -1,84 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="{{ url_for('static',filename='styles/style.css') }}" />
-		<title>Take prompt</title>
-	</head>
-	<body>
-		<header>
-			<div class="logo">researchGPT</div>
-			<nav>
-				<ul>
-					<li><a href="/">Home</a></li>
-					<!-- <li><a href="#"></a></li> -->
-					<!-- <li><a href="#"></a></li> -->
-				</ul>
-			</nav>
-		</header>
-		<div class="center">
-			<form action="/prompt" method="POST" enctype="multipart/form-data">
-				<input type="text" name="promptText" />
-				<input type="submit" value="Submit Prompt" onclick="loading()" />
-			</form>
-			{% if output %}
-			<h2>Output:</h2>
-			<p>{{ output }}</p>
-			{% endif %} {% if prompt %}
-
-			<hr />
-
-			<h4>Prompt:</h4>
-			<p class="prompt">{{ prompt }}</p>
-			{% endif %}
-		</div>
-		<section class="faq">
-			<div class="faq-section">
-				<h2>Frequently Asked Questions</h2>
-				<div class="faq-list">
-					<div class="faq-item">
-						<h3 class="question">What is this app?</h3>
-						<div class="answer">
-							<p>
-								This app is a tool that uses OpenAI's natural language
-								processing to generate text based on user input. It can be used
-								for a variety of purposes, including writing assistance and
-								chatbot development.
-							</p>
-						</div>
-					</div>
-					<div class="faq-item">
-						<h3 class="question">How does it work?</h3>
-						<div class="answer">
-							<p>
-								The app uses OpenAI's GPT-3 language model to generate text
-								based on user input. The user provides a prompt, and the app
-								uses the model to generate a text response. The user can then
-								edit the response as needed and use it for their desired
-								purpose.
-							</p>
-						</div>
-					</div>
-					<div class="faq-item">
-						<h3 class="question">Is my data safe?</h3>
-						<div class="answer">
-							<p>
-								Yes, your data is safe. The app does not store any user data on
-								our servers, and all data is processed locally on the user's
-								device. We also use encryption to ensure that all data
-								transmission is secure.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<footer class="footer">Made with 💗 using openAI API by Kriyanshi, Nimit & Sadiah</footer>
-
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+    <title>Take prompt</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo">researchGPT</div>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <!-- <li><a href="#"></a></li> -->
+          <!-- <li><a href="#"></a></li> -->
+        </ul>
+      </nav>
+    </header>
+    <div class="center">
+      <form action="/prompt" method="POST" enctype="multipart/form-data">
+        <input type="text" name="promptText" />
+        <input type="submit" value="Submit Prompt" onclick="loading()" />
+      </form>
+      {% if output %}
+      <h2>Output:</h2>
+      <p>{{ output }}</p>
+      {% endif %} {% if prompt %}
+  
+      <hr />
+  
+      <h4>Prompt:</h4>
+      <p class="prompt">{{ prompt }}</p>
+      {% endif %}
+    </div>
+  </body>
 </html>
