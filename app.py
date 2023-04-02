@@ -20,7 +20,8 @@ def upload():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         try:
             compute.uploadDocuments(app.config['UPLOAD_FOLDER'])
-        except:
+        except Exception as err:
+            print(f'Error while executing completion query: {err}')
             return render_template("error.html")
 
     return render_template("prompt.html")
@@ -34,7 +35,8 @@ def prompt():
         queryText = flask.request.form.get('promptText')
         try:
             prompt, output = compute.query(queryText)
-        except:
+        except Exception as err:
+            print(f'Error while executing completion query: {err}')
             return render_template("error.html")
         return render_template("prompt.html", output=output, prompt=prompt)
 
