@@ -20,7 +20,7 @@ class Main:
             api_key=os.environ.get("PINECONE_API_KEY"),
             environment='eu-west1-gcp',
         )
-        index_name = 'user-index-nimit'
+        index_name = os.environ.get("PINECONE_INDEX_NAME")
         ###
 
         if index_name not in pinecone.list_indexes():
