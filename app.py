@@ -29,9 +29,10 @@ def upload():
         except Exception as err:
             print(f'Error while executing completion query: {err}')
             return render_template("error.html")
-    if exceeded_size:
-        return render_template("prompt.html", output="You have exceeded either the file size or number limits")
-    else:
+
+        if exceeded_size:
+            return render_template("prompt.html", output="You have exceeded either the file size or number limits")
+
         return render_template("prompt.html")
 
 @app.route("/prompt", methods = ['GET', 'POST'])
