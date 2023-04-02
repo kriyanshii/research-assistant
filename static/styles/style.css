@@ -46,7 +46,7 @@ nav a:hover {
 .center {
 	margin: 100px auto;
 	width: 50%;
-    height: 500px;
+    /* height: 500px; */
 }
 
 .chat-input {
@@ -81,6 +81,11 @@ button[type="submit"]:hover {
 	background-color: #005cbf;
 	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+.prompt{
+    color: #bfbfbf;
+    font-size: 15px;
+}
 /* file */
 .file-upload-label {
 	display: inline-block;
@@ -93,6 +98,10 @@ button[type="submit"]:hover {
 	border: 1px solid #5a5a5a;
 	cursor: pointer;
 	margin-right: 10px;
+}
+
+span{
+    color: red;
 }
 
 /* .file-upload-input {
