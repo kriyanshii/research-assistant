@@ -33,11 +33,11 @@ def prompt():
     if flask.request.method == "POST":
         queryText = flask.request.form.get('promptText')
         try:
-            prompt, output = compute.query(queryText)
+            prompt, output, references = compute.query(queryText)
         except Exception as err:
             print(f'Error while executing completion query: {err}')
             return render_template("error.html")
-        return render_template("prompt.html", output=output, prompt=prompt)
+        return render_template("prompt.html", output=output, prompt=prompt.split('\n'), references=references)
 
 
 

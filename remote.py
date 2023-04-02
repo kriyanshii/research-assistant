@@ -92,6 +92,7 @@ class Remote:
         # print(res)
         
         contexts = [x['metadata']['text'] for x in completionResult['matches']]
+        references = {x['metadata']['title'] for x in completionResult['matches']}
         prompt_start = (
             "Answer the question based on the context below.\n\n"+
             "Context:\n"
@@ -121,7 +122,7 @@ class Remote:
         ans = get_completion(prompt)
         # print('*********************************************************')
         # print(ans)
-        return [prompt, ans]
+        return [prompt, ans, references]
 
 
 

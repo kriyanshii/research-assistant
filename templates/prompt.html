@@ -12,31 +12,26 @@
     <title>Take prompt</title>
   </head>
   <body>
-    <header>
-      <div class="logo">researchGPT</div>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <!-- <li><a href="#"></a></li> -->
-          <!-- <li><a href="#"></a></li> -->
-        </ul>
-      </nav>
-    </header>
-    <div class="center">
-      <form action="/prompt" method="POST" enctype="multipart/form-data">
-        <input type="text" name="promptText" />
-        <input type="submit" value="Submit Prompt" onclick="loading()" />
-      </form>
-      {% if output %}
-      <h2>Output:</h2>
-      <p>{{ output }}</p>
-      {% endif %} {% if prompt %}
-  
-      <hr />
-  
-      <h4>Prompt:</h4>
-      <p class="prompt">{{ prompt }}</p>
-      {% endif %}
-    </div>
+    <form action="/prompt" method="POST" enctype="multipart/form-data">
+      <input type="text" name="promptText" />
+      <input type="submit" value="Submit Prompt" onclick="loading()" />
+    </form>
+    {% if output %}
+    <h2>Output:</h2>
+    <p>{{ output }}</p>
+    {% endif %}
+    {% if prompt %}
+    <hr />
+
+    <h4>Prompt:</h4>
+    {% for para in prompt %}
+    <p class="prompt">{{ para }}</p>
+    {% endfor %} {% endif %} 
+    
+    {% if references %}
+    <p style="font-weight: bold">Reference</p>
+    {% for para in references %}
+    <p>{{ para }}</p>
+    {% endfor %} {% endif %}
   </body>
 </html>
