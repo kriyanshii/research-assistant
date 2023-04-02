@@ -19,12 +19,19 @@
     {% if output %}
     <h2>Output:</h2>
     <p>{{ output }}</p>
-    {% endif %} {% if prompt %}
-
+    {% endif %}
+    {% if prompt %}
     <hr />
 
     <h4>Prompt:</h4>
-    <p class="prompt">{{ prompt }}</p>
-    {% endif %}
+    {% for para in prompt %}
+    <p class="prompt">{{ para }}</p>
+    {% endfor %} {% endif %} 
+    
+    {% if references %}
+    <p style="font-weight: bold">Reference</p>
+    {% for para in references %}
+    <p>{{ para }}</p>
+    {% endfor %} {% endif %}
   </body>
 </html>
