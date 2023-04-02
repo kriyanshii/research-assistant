@@ -1,16 +1,6 @@
 # Research Assistant
 
-## Ask Relevant questions to get relevent answers!
-
-### Utilise research papers without actually reading them!
-
-## Usecases
-
-Anything that requires a big knowledge base and can benefit from semantic search nad finding answers to non specific queries.
-Example:
-
-- Add user manuals to the knowledge base and instantly know the answer to why there is an orange light blinking away
-- Upload research papers and find immediate answers to your questions.
+## Ask Relevant Questions to Get Relevent Answers!
 
 ## The Product
 
@@ -18,27 +8,39 @@ We have designed an aid for the everyday researcher and knowledge gatherer. You 
 
 A user can upload a number of well-formatted (mostly plaintext) PDFs. This tool is focused on research papers due to their standard format, making it very easy to extract text. Also, the need for such a tool is greater because research papers tend to have a lot of data and sifting through many research papers to obtain data related to a query can become tedious.
 
-<!-- ## Competitors
+## Usecases
 
-There are currently no large scale competitors to this product. Despite appearances, summarization tools, even those harnessing AI cannot be compared to this product.
+### Utilise documents without actually reading them!
 
-Indirect competitors AI summary tools: scholarcy, paper-digest -->
+Anything that requires a big knowledge base and can benefit from semantic search nad finding answers to non specific queries.
+Example:
 
-## How it Works
+- Add user manuals to the knowledge base and instantly know the answer to why there is an orange light blinking away
+- Upload research papers and find immediate answers to your questions.
+
+## Under the hood
 
 Text is extracted from the uploaded PDFs and cleaned such that each piece of text contains information such that minimum outside context is needed. A vector is created from this text using a process known as embedding.
 
 The text - approximately 40-200 words in length, is embedded using a sentence transformer model. This basically encodes the text data into hundreds of dimensions of vector space so that it can be denoted using numbers. These dense vectors are stored in an index in a vector database.
+
+We have created two approaches for this. A local approach uses a fairly performant and cost effective model (can produce accurate and swift results without a GPU) and uses dot product as a similarity metric.
 This model was chosen after careful deliberation due to the following factors:
 
 - Best SBERT model in terms of performance
 - High output vector size (768 dimensions)
 - Based on the microsoft mpnet model and then trained on 215M+ question-answer samples from various sources.
-- Comparatively cost effective
+- Cost effective
 
-_The OpenAI embeddings API can also be used (support for which is forthcoming)._
+The second approach uses the OpenAI embeddings API and creates a 1536 dimension dense vector, offloading demanding tasks to remote servers. This uses a cosine similarity metric.
 
-Whenever the user asks a question, it is converted into a vector using the _same_ embedding model. Dot product of the two is then calculated and based on the result, one can find the similarity between the two vectors. Text metadata from the top three vectors with highest similarity are further used as a context into the large language model powered completions API by OpenAI. Which provides a great human-readable answer.
+Whenever the user asks a question, it is converted into a vector using the _same_ embedding model. The order of similarity metrics between vectors in the knowledge base and query vector provide relevance. Text metadata from the top three vectors with highest similarity are further used as a context into the large language model powered completions API by OpenAI which provides a great human-readable answer.
+
+## Competitors
+
+There are currently no large scale competitors to this product. Despite appearances, summarization tools (even those harnessing the power of AI) are vastly different from this product.
+
+Indirect competitors AI summary tools: scholarcy, paper-digest
 
 ## Potential Improvements
 
@@ -58,6 +60,14 @@ Whenever the user asks a question, it is converted into a vector using the _same
 - Maintaining privacy
 - Integration with all personal devices of the user
 
-Link to google colab - https://colab.research.google.com/drive/1FQqfs4N5aeqiuv_EMNdSOj50UCD_PuBA?usp=sharing
+Link to google colab (used for testing) - https://colab.research.google.com/drive/1FQqfs4N5aeqiuv_EMNdSOj50UCD_PuBA?usp=sharing
+
+## Deployments
+
+Multiple deployments ensure zero downtime even when on free tiers ;)
+
+<a href="https://researchgpt-grs5.onrender.com/">Render</a>
+<a href="https://research-assistant-production.up.railway.app/">Railway</a>
+<a href="http://ec2-13-233-118-234.ap-south-1.compute.amazonaws.com/">AWS</a>
 
 > This project was made during the course of the stranger hacks event by devfolio with the objective to develop a web app that can provide proof of concept and basic functionality. Development of a more robust and feature rich version of this project is to continue post the hackathon.
