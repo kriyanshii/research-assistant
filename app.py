@@ -3,10 +3,11 @@
 from flask import Flask, render_template
 import flask
 import os
-from main import Main
+# from local import Local
+from remote import Remote
 
 app = Flask(__name__)
-compute = Main()
+compute = Remote()
 
 UPLOAD_FOLDER = 'data'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -32,10 +33,10 @@ def prompt():
     if flask.request.method == "POST":
         queryText = flask.request.form.get('promptText')
         try:
-            output = compute.query(queryText)
+            prompt, output = compute.query(queryText)
         except:
             return render_template("error.html")
-        return render_template("prompt.html", output = output)
+        return render_template("prompt.html", output=output, prompt=prompt)
 
 
 

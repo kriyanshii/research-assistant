@@ -1,33 +1,32 @@
 # type: ignore
 
-from sentence_transformers import SentenceTransformer
 from tqdm.auto import tqdm
 from PyPDF2 import PdfReader
 import pinecone, openai
 import re, os, shutil
 from time import sleep
+from tenacity import retry, wait_random_exponential, stop_after_attempt
 
-class Main:
+class Remote:
 
     def __init__(self):
         print('main init')
         self.initialized = False
         self.uploaded = True
-        self.model = SentenceTransformer('sentence-transformers/multi-qa-mpnet-base-dot-v1')
 
         openai.api_key = os.environ.get("OPENAI_KEY")
         pinecone.init(
             api_key=os.environ.get("PINECONE_API_KEY"),
-            environment='eu-west1-gcp',
+            environment='us-central1-gcp',
         )
-        index_name = os.environ.get("PINECONE_INDEX_NAME")
+        index_name = os.environ.get("PINECONE_REMOTE_INDEX_NAME")
         ###
 
         if index_name not in pinecone.list_indexes():
             pinecone.create_index(
                 index_name,
-                dimension=768,
-                metric='dotproduct',
+                dimension=1536,
+                metric='cosine',
                 metadata_config={'indexed': []}
             )
 
@@ -37,9 +36,11 @@ class Main:
         print(self.index.describe_index_stats())
         
     def uploadDocuments(self, upload_folder):
-        while not self.initialized:
-            print(f'initialized: {self.initialized}')
-            sleep(3)
+        if not self.initialized:
+            raise NotImplementedError
+        # while not self.initialized:
+        #     print(f'initialized: {self.initialized}')
+        #     sleep(3)
 
         self.uploaded = False
         for filename in os.listdir(upload_folder):
@@ -68,7 +69,7 @@ class Main:
             print(f'Vectors for {title}:', len(sentences))
 
             ids = list(map(str, [*range(total_vectors, total_vectors + len(sentences))]))
-            embeds = [self.model.encode(sentence, convert_to_numpy=True).tolist() for sentence in sentences]
+            embeds = [get_embedding(sentence) for sentence in sentences]
             meta = [{'title': title, 'text': sentence} for sentence in sentences]
 
             to_upsert = list(zip(ids, embeds, meta))
@@ -78,12 +79,14 @@ class Main:
         self.uploaded = True
 
     def query(self, queryText):
-        while not self.initialized and not self.uploaded:
-            print(f'initialized: {self.initialized} | uploaded: {self.uploaded}')
-            sleep(3)
+        if not self.initialized and not self.uploaded:
+            raise NotImplementedError
+        # while not self.initialized and not uploaded:
+        #     print(f'initialized: {self.initialized} | uploaded: {self.uploaded}')
+        #     sleep(3)
 
         query = queryText
-        qv = self.model.encode(query).tolist()
+        qv = get_embedding(query)
 
         completionResult = self.index.query(qv, top_k=3, include_metadata=True)
         # print(res)
@@ -115,7 +118,20 @@ class Main:
 
         # print(prompt)
 
-        completionResult = openai.Completion.create(
+        ans = get_completion(prompt)
+        # print('*********************************************************')
+        # print(ans)
+        return [prompt, ans]
+
+
+
+@retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
+def get_embedding(text: str, model="text-embedding-ada-002") -> list[float]:
+    return openai.Embedding.create(input=[text], model=model)["data"][0]["embedding"]
+
+@retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
+def get_completion(prompt) -> str:
+    completionResult = openai.Completion.create(
             engine='text-davinci-003',
             prompt=prompt,
             temperature=0,
@@ -125,13 +141,7 @@ class Main:
             presence_penalty=0,
             stop=None
         )
-        ans = completionResult['choices'][0]['text'].strip()
-        # print('*********************************************************')
-        # print(ans)
-        return ans
-
-
-
+    return completionResult['choices'][0]['text'].strip()
 
 def getCorpus(path):
     pdf_file = open(path, 'rb')

@@ -75,3 +75,8 @@ button[type="submit"]:hover {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.prompt {
+    color: grey;
+    
+}
