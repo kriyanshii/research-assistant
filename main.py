@@ -5,13 +5,13 @@ import pinecone, openai
 import re, os, shutil
 
 
-def init():
+def init(queryText):
     model = SentenceTransformer('sentence-transformers/multi-qa-mpnet-base-dot-v1')
 
     ### CAN USE ENVIRONMENT VARIABLES FOR THIS
-    openai.api_key = OPENAI_API_KEY
+    openai.api_key = os.environ.get("OPENAI_KEY")
     pinecone.init(
-        api_key=PINECONE_API_KEY,
+        api_key= os.environ.get("PINECONE_API_KEY"),
         environment='eu-west1-gcp',
     )
     index_name = 'user-index-nimit'
@@ -38,7 +38,17 @@ def init():
 
       path = f'data/{filename}'
       sentences = getCorpus(path)
-      shutil.move(path, 'used_data')
+      try:
+        shutil.move(path, 'used_data')
+      except:
+        os.remove(path)
+    #   shutil.move(path, 'used_data')
+
+    #   try:
+    #     shutil.move(path, 'used_data')
+    #   except: 
+    #     pass
+      
       
       print(f'Vectors for {title}:', len(sentences))
 
@@ -51,8 +61,8 @@ def init():
       # print(to_upsert[0])
 
       index.upsert(vectors=to_upsert)
-    
-    query = 'question answering capability of gpt-2'
+    query = queryText
+    # query = 'question answering capability of gpt-2'
     qv = model.encode(query).tolist() # type: ignore
 
     completionResult = index.query(qv, top_k=3, include_metadata=True)
@@ -83,7 +93,7 @@ def init():
                 prompt_end
             )
 
-    print(prompt)
+    # print(prompt)
 
     completionResult = openai.Completion.create(
         engine='text-davinci-003',
@@ -96,8 +106,9 @@ def init():
         stop=None
     )
     ans = completionResult['choices'][0]['text'].strip() # type: ignore
-    print('*********************************************************')
-    print(ans)
+    # print('*********************************************************')
+    # print(ans)
+    return ans
 
 
 
